@@ -4,6 +4,7 @@ view: users {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -11,6 +12,13 @@ view: users {
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+  }
+
+  dimension: age_tier {
+    type: tier
+    tiers: [15, 25, 35, 45, 55, 65, 75]
+    style: integer
+    sql: ${age} ;;
   }
 
   dimension: city {
@@ -71,6 +79,21 @@ view: users {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_female_users {
+    type: count_distinct
+    sql:  ${id} ;;
+    drill_fields: [id, users.id, users.first_name, users.last_name, order_items.count]
+    filters: {
+      field: gender
+      value: "f"
+    }
+  }
+
+  measure: median_age {
+    type: median
+    sql: ${age} ;;
   }
 
   # ----- Sets of fields for drilling ------
