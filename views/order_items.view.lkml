@@ -49,7 +49,7 @@ view: order_items {
 
   dimension: is_big_order {
     type: yesno
-    sql: ${sale_price}>=$200 ;;
+    sql: ${sale_price}>=200 ;;
   }
 
   measure: average_sale_price {
@@ -68,7 +68,9 @@ view: order_items {
     type: percent_of_total
     direction: "column"
     value_format_name: decimal_1
-    sql: ${total_sale_price} ;;
+    sql: CASE WHEN ${orders.status} = 'cancelled' THEN 0
+              WHEN ${orders.status} = 'pending' THEN 0
+              ELSE ${total_sale_price} END ;;
   }
 
   measure: count {
