@@ -64,6 +64,13 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure:  percent_of_total_test {
+    type: percent_of_total
+    direction: "column"
+    value_format_name: decimal_1
+    sql: ${total_sale_price} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]

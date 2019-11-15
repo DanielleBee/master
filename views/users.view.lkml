@@ -30,6 +30,7 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    drill_fields: [detail*]
   }
 
   dimension_group: created {
@@ -69,6 +70,11 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    drill_fields: [city, users.count, orders.count]
+    link: {
+      label: "Drill Explore"
+      url:"/explore/danielle_test/order_items?fields=users.city,users.count,orders.count&f[users.state]={{ value }}&f[orders.created_year]={{ _filters['order_items.created_year'] | url_encode }}"
+    }
   }
 
   dimension: zip {
