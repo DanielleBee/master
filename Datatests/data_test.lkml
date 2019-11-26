@@ -1,5 +1,5 @@
 
-  test: quantities_by_age_tier {
+  test: counts_by_age_tier {
     explore_source: order_items {
       column: age_tier { field: users.age_tier }
       column: order_items_count { field: order_items.counttest }
@@ -10,15 +10,15 @@
       }
     }
 
-    assert: quantities_are_positive {
+    assert: order_items_counttest_is_positive {
       expression: ${order_items.counttest} > 0 ;;
     }
 
-    assert: trans_are_positive {
+    assert: orders_count_is_positive {
       expression: ${orders.count} > 0 ;;
     }
 
-    assert: qty_over_trans {
+    assert: order_items_greater_than_orders {
       expression: ${order_items.counttest} >= ${orders.count} ;;
     }
   }
