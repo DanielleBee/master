@@ -78,6 +78,15 @@ view: order_items {
     drill_fields: [id, orders.id, inventory_items.id]
   }
 
+  measure: counttest {
+    type: number
+    sql:
+    {% if _model._name == 'daniellebugtest' %}
+    CASE WHEN ${count} = 3276 THEN ${count}*-1 ELSE ${count} END
+    {% else %} ${count} {% endif %}
+    ;;
+  }
+
   measure: days_between_order_and_return {
     type:  number
     sql: CASE(${returned_date} IS NOT NULL THEN ${orders.created_date}-${returned_date} ELSE "N/A" END) ;;
