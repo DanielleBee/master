@@ -12,7 +12,7 @@ datagroup: danielle_test_default_datagroup {
 
 persist_with: danielle_test_default_datagroup
 
-explore: connection_reg_r3 {}
+#explore: connection_reg_r3 {}
 
 explore: derived_test_table_3_20190510 {}
 
