@@ -4,6 +4,7 @@ connection: "thelook"
 include: "/views/**/*.view"
 
 include: "/Datatests/data_test.lkml"
+include: "/Datatests/data_test_primary_key.lkml"
 
 datagroup: danielle_test_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;

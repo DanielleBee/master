@@ -78,6 +78,12 @@ view: order_items {
     drill_fields: [id, orders.id, inventory_items.id]
   }
 
+  measure: count_distinct {
+    type: count_distinct
+    sql: ${id} ;;
+    drill_fields: [id, orders.id, inventory_items.id]
+  }
+
   measure: counttest {
     type: number
     sql:

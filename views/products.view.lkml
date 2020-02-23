@@ -13,6 +13,18 @@ view: products {
     sql: ${TABLE}.brand ;;
   }
 
+  dimension: brand_with_html {
+    type: string
+    sql: CONCAT(${brand}," - ",${item_name}) ;;
+    html: <a href="https://google.com/search?q={{brand._value}}" target="_blank" >{{value}}</a> ;;
+  }
+
+  dimension: brand_without_html {
+    type: string
+    sql: CONCAT(${brand}," - ",${item_name}) ;;
+    #html: <a href="https://google.com/search?q={{brand._value}}&{{item_name._value}}" target="_blank" >{{value}}</a> ;;
+  }
+
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
@@ -41,6 +53,38 @@ view: products {
   dimension: sku {
     type: string
     sql: ${TABLE}.sku ;;
+  }
+
+  parameter: select_product_detail {
+    description: "Product granularity with parameter set up with allowed values"
+    type: unquoted
+    default_value: "department"
+    allowed_value: {
+      value: "department"
+      label: "Department"
+    }
+    allowed_value: {
+      value: "category"
+      label: "Category"
+    }
+    allowed_value: {
+      value: "brand"
+      label: "Brand"
+    }
+  }
+
+  dimension: product_hierarchy {
+    label_from_parameter: select_product_detail
+    description: "To be used with the Select Product Detail parameter - conditional logic with liquid variables in the sql"
+    type: string
+    sql:
+    {% if select_product_detail._parameter_value == 'department' %}
+      ${department}
+    {% elsif select_product_detail._parameter_value == 'category' %}
+      ${category}
+    {% else %}
+      ${brand}
+    {% endif %} ;;
   }
 
   measure: count {
