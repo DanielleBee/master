@@ -60,6 +60,7 @@ explore: order_items {
 }
 
 explore: orders {
+  sql_always_where: {% condition orders.date_granularity %} orders.created_at {% endcondition %} ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
