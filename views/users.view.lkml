@@ -67,6 +67,11 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
+  dimension: ampersand_test_name {
+    type: string
+    sql: CONCAT (${first_name}, ' & ', ${last_name}) ;;
+  }
+
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;

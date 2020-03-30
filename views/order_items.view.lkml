@@ -36,7 +36,7 @@ view: order_items {
 
   dimension: sale_price {
     type: number
-    sql: ${TABLE}.sale_price ;;
+    sql: ${TABLE}.sale_price * 1000 ;;
   }
 
   dimension: sale_price_tier {
@@ -62,6 +62,14 @@ view: order_items {
     type:  sum
     sql: ${sale_price} ;;
     value_format_name: usd
+#       value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
+  }
+
+  measure: total_sale_price_html {
+    label: " "
+    type: sum
+    sql: ${sale_price} ;;
+    html: {{ users.ampersand_test_name._rendered_value }}: {{ rendered_value }} ;;
   }
 
   measure:  percent_of_total_test {

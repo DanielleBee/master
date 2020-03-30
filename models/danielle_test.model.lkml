@@ -61,6 +61,16 @@ explore: order_items {
 
 explore: orders {
   sql_always_where: {% condition orders.date_granularity %} orders.created_at {% endcondition %} ;;
+##### For use with the parameter type: string
+#   sql_always_where:  {% if orders.date_picker._parameter_value == "'Last Month'" %}
+#   ((( orders.created_at ) >= ((DATE_ADD(TIMESTAMP(DATE_FORMAT(DATE(NOW()),'%Y-%m-01')),INTERVAL -1 month))) AND ( orders.created_at ) < ((DATE_ADD(DATE_ADD(TIMESTAMP(DATE_FORMAT(DATE(NOW()),'%Y-%m-01')),INTERVAL -1 month),INTERVAL 1 month)))))
+#   {% elsif orders.date_picker._parameter_value == "'This Year'" %}
+#   ((( orders.created_at ) >= ((TIMESTAMP(DATE_FORMAT(DATE(NOW()),'%Y-01-01')))) AND ( orders.created_at ) < ((DATE_ADD(TIMESTAMP(DATE_FORMAT(DATE(NOW()),'%Y-01-01')),INTERVAL 1 year)))))
+#   {% elsif orders.date_picker._parameter_value == "'Last Year'" %}
+#   ((( orders.created_at ) >= ((DATE_ADD(TIMESTAMP(DATE_FORMAT(DATE(NOW()),'%Y-01-01')),INTERVAL -1 year))) AND ( orders.created_at ) < ((DATE_ADD(DATE_ADD(TIMESTAMP(DATE_FORMAT(DATE(NOW()),'%Y-01-01')),INTERVAL -1 year),INTERVAL 1 year)))))
+#   {% else %}
+#   1=1
+#   {% endif %} ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
