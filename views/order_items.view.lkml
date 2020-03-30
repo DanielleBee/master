@@ -69,7 +69,7 @@ view: order_items {
     label: " "
     type: sum
     sql: ${sale_price} ;;
-    html: {{ users.ampersand_test_name._rendered_value }}: {{ rendered_value }} ;;
+    html: {{ users.ampersand_test_name._rendered_value }}: Total Sale Price {{ rendered_value }} ;;
   }
 
   measure:  percent_of_total_test {
