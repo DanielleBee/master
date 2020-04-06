@@ -36,7 +36,7 @@ view: order_items {
 
   dimension: sale_price {
     type: number
-    sql: ${TABLE}.sale_price * 1000 ;;
+    sql: ${TABLE}.sale_price ;;
   }
 
   dimension: sale_price_tier {
@@ -49,7 +49,25 @@ view: order_items {
 
   dimension: is_big_order {
     type: yesno
-    sql: ${sale_price}>=200 ;;
+    sql: ${sale_price}>=1000 ;;
+  }
+
+  dimension: is_medium_order {
+    type: yesno
+    sql: ${sale_price}<1000 AND ${sale_price} >=500;;
+  }
+
+  dimension: is_small_order {
+    type: yesno
+    sql: ${sale_price}<500;;
+  }
+
+  dimension: order_size {
+    type: string
+    sql: CASE WHEN ${is_big_order} THEN 'big'
+    WHEN  ${is_medium_order} THEN 'medium'
+    ELSE 'small'
+    END;;
   }
 
   measure: average_sale_price {
@@ -69,7 +87,7 @@ view: order_items {
     label: " "
     type: sum
     sql: ${sale_price} ;;
-    html: {{ users.ampersand_test_name._rendered_value }}: Total Sale Price {{ rendered_value }} ;;
+    html: {{ orders.ampersand_test_status._rendered_value }}: Total Price {{ rendered_value }} ;;
   }
 
   measure:  percent_of_total_test {

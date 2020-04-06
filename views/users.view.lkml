@@ -67,9 +67,9 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: ampersand_test_name {
+  dimension: ampersand_test_geography {
     type: string
-    sql: CONCAT (${first_name},' & ',${last_name}) ;;
+    sql: CONCAT (${city},' & ',${state}) ;;
   }
 
   dimension: state {

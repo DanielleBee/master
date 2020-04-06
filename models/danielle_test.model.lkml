@@ -90,6 +90,14 @@ explore: user_data {
   }
 }
 
+explore: derived_table {
+  join: orders {
+    type: left_outer
+    sql_on: ${derived_table.order_id} = ${orders.id} ;;
+    relationship: many_to_one
+  }
+}
+
 explore: users {}
 
 explore: users_nn {}

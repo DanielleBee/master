@@ -26,6 +26,10 @@ view: orders {
     allowed_value: {value: "Last Year"}
   }
 
+#   filter: date_filter {
+#     type: date
+#   }
+
 #   parameter: date_picker {
 #     description: "Parameter of type: string"
 #     type: date_time
@@ -64,6 +68,11 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+  }
+
+  dimension: ampersand_test_status {
+    type: string
+    sql: CONCAT(${TABLE}.status, ' & fulfilled') ;;
   }
 
   dimension: user_id {
