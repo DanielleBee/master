@@ -8,6 +8,10 @@ view: derived_table {
        ;;
   }
 
+#       WHERE created_at <= IFNULL(CONVERT_TZ({% date_end date_filter %},'UTC','America/Los_Angeles'), '2037-01-01')
+#       AND returned_at >= IFNULL({% date_start date_filter %},'1900-01-01')
+#        ;;
+
   filter: date_filter {
     type: date
   }
@@ -60,6 +64,7 @@ view: derived_table {
   dimension_group: returned_at {
     type: time
     sql: ${TABLE}.returned_at ;;
+#     convert_tz: no
   }
 
   set: detail {
