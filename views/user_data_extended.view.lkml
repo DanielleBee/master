@@ -1,10 +1,14 @@
-view: users {
+include: "user_data.view.lkml"
+
+view: user_data_extended {
+  extends: [user_data]
   sql_table_name: demo_db.users ;;
-  drill_fields: [id]
+
+########## Pasted in dimensions from the users table ###############
 
   dimension: id {
     primary_key: yes
-    hidden: yes
+#     hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -41,7 +45,6 @@ view: users {
       date,
       week,
       month,
-      month_name,
       quarter,
       year
     ]
@@ -83,23 +86,12 @@ view: users {
 #     }
   }
 
-  dimension: region {
-    type: string
-    sql: case when users.state in ("Maine", "Massachusetts", "Connecticut", "Vermont") then "Northeast"
-    when users.state in ("Washington", "Oregon") then "Pacific Northwest"
-    when users.state in ("Florida", "Alabama", "Mississippi", "South Carolina", "Georgia") then "South"
-    when users.state in ("Arizona", "New Mexico", "Nevada") then "Southwest"
-    else "No Region Assigned"
-    end;;
-  }
-
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
   }
 
   measure: count {
-    label: "User Count"
     type: count
     drill_fields: [detail*]
   }
@@ -130,4 +122,9 @@ view: users {
       user_data.count
     ]
   }
+
+  set: user_data_fields {
+    fields: [user_data.max_num_orders, user_data.total_num_orders, user_data.user_id, user_data.count]
+  }
+
 }

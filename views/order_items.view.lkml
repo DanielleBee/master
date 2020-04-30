@@ -39,6 +39,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: sale_price_negative {
+    type: number
+    sql: ${TABLE}.sale_price * -1 ;;
+  }
+
   dimension: sale_price_tier {
     type: tier
     tiers: [50, 100, 150, 200]

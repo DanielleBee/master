@@ -1,12 +1,14 @@
 view: derived_table {
   derived_table: {
-    sql: SELECT orders.id AS orderid, created_at, user_id, status, order_items.* FROM orders
+    sql: SELECT orders.id AS orderid, created_at, status, order_items.* FROM orders
       JOIN order_items
       ON orders.id = order_items.order_id
-      WHERE created_at <= IFNULL({% date_end date_filter %}, '2037-01-01')
-      AND returned_at >= IFNULL({% date_start date_filter %},'1900-01-01')
+
        ;;
   }
+
+#       WHERE created_at <= IFNULL({% date_end date_filter %}, '2037-01-01')
+#       AND returned_at >= IFNULL({% date_start date_filter %},'1900-01-01')
 
 #       WHERE created_at <= IFNULL(CONVERT_TZ({% date_end date_filter %},'UTC','America/Los_Angeles'), '2037-01-01')
 #       AND returned_at >= IFNULL({% date_start date_filter %},'1900-01-01')
@@ -28,6 +30,20 @@ view: derived_table {
 
   dimension_group: created_at {
     type: time
+#     timeframes: [
+#       raw,
+#       time,
+#       date,
+#       day_of_week,
+#       day_of_week_index,
+#       week,
+#       month,
+#       day_of_month,
+#       quarter,
+#       quarter_of_year,
+#       fiscal_quarter,
+#       year
+#     ]
     sql: ${TABLE}.created_at ;;
   }
 

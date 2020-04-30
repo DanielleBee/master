@@ -102,6 +102,10 @@ explore: users {}
 
 explore: users_nn {}
 
+explore: user_data_extended {
+  fields: [ALL_FIELDS*, - user_data_extended.user_data_fields*]
+}
+
 explore: zozo_table_20190507 {}
 
 explore: zozo_table_20190508 {}
