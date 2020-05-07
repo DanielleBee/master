@@ -107,7 +107,7 @@ view: user_data_extended {
   }
 
   measure: median_age {
-    type: median
+    type: number
     sql: ${age} ;;
   }
 
