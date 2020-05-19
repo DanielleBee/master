@@ -1,6 +1,5 @@
 connection: "thelook"
 
-# include all the views
 include: "/views/**/*.view"
 # include: "/dashboards/**/*.dashboard"
 
