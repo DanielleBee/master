@@ -120,6 +120,12 @@ view: order_items {
 
 ######### End Dynamic Measure ##########
 
+  measure: total_sale_price_html_2 {
+    type: number
+    sql: ${total_sale_price};;
+    html:{{ total_sale_price._rendered_value }};;
+  }
+
   measure: total_sale_price_html {
     type: sum
     sql: ${sale_price} ;;
