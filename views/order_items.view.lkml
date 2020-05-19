@@ -84,12 +84,43 @@ view: order_items {
   measure: total_sale_price {
     type:  sum
     sql: ${sale_price} ;;
-    value_format_name: usd
+    value_format_name: usd_0
 #       value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
   }
 
+######## Dynamic Measure with Parameters ############
+
+  parameter: metric_selector {
+    type: string
+    allowed_value: {
+      label: "Total Sale Price"
+      value: "total_sale_price"
+   }
+    allowed_value: {
+      label: "Total Number of Orders"
+      value: "total_number_of_orders"
+    }
+  }
+
+  measure: dynamic_metric {
+    label_from_parameter: metric_selector
+    type: number
+    sql:
+      {% if metric_selector._parameter_value == "'total_sale_price'" %}
+      ${order_items.total_sale_price}
+      {% else %}
+      ${orders.count}
+      {% endif %};;
+    html: {% if metric_selector._parameter_value == "'total_number_of_orders'" %}
+      {{ orders.count._rendered_value }}
+    {% else %}
+      {{ total_sale_price._rendered_value }}
+    {% endif %}  ;;
+  }
+
+######### End Dynamic Measure ##########
+
   measure: total_sale_price_html {
-    label: " "
     type: sum
     sql: ${sale_price} ;;
     html: {{ orders.ampersand_test_status._rendered_value }}: Total Price {{ rendered_value }} ;;
@@ -98,7 +129,7 @@ view: order_items {
   measure:  percent_of_total_test {
     type: percent_of_total
     direction: "column"
-    value_format_name: decimal_1
+    value_format_name: decimal_2
     sql: CASE WHEN ${orders.status} = 'cancelled' THEN 0
               WHEN ${orders.status} = 'pending' THEN 0
               ELSE ${total_sale_price} END ;;

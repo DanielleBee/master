@@ -17,19 +17,19 @@ view: orders {
   parameter: date_granularity {
     description: "Parameter of type: date_time to be used with { % condition % } sql_always_where on explore"
     type: date_time
-    default_value: "Last Month"
-    allowed_value: {value: "This Week"}
-    allowed_value: {value: "Last Week"}
-    allowed_value: {value: "This Month"}
-    allowed_value: {value: "Last Month"}
-    allowed_value: {value: "This Quarter"}
-    allowed_value: {value: "Last Quarter"}
-    allowed_value: {value: "6 months"}
-    allowed_value: {
-      label: "Year to date"
-      value: "This Year"
-    }
-    allowed_value: {value: "Last Year"}
+#     default_value: "Last Month"
+#     allowed_value: {value: "This Week"}
+#     allowed_value: {value: "Last Week"}
+#     allowed_value: {value: "This Month"}
+#     allowed_value: {value: "Last Month"}
+#     allowed_value: {value: "This Quarter"}
+#     allowed_value: {value: "Last Quarter"}
+#     allowed_value: {value: "6 months"}
+#     allowed_value: {
+#       label: "Year to date"
+#       value: "This Year"
+#     }
+#     allowed_value: {value: "Last Year"}
   }
 
 #   filter: date_filter {
@@ -60,12 +60,15 @@ view: orders {
     timeframes: [
       raw,
       time,
+      time_of_day,
+      hour_of_day,
       date,
       day_of_week,
       day_of_week_index,
       week,
       month,
       month_name,
+      month_num,
       day_of_month,
       quarter,
       year
@@ -75,6 +78,7 @@ view: orders {
 
   dimension_group: fiscal_test {
     type: time
+    allow_fill: no
     timeframes: [
       date,
       week,
@@ -100,10 +104,10 @@ view: orders {
     html: Fiscal Month {{ value }} ;;
   }
 
-  dimension: fiscal_week {
-    type: date_week_of_year
-    sql: ${TABLE}.created_at ;;
-    html: Fiscal Week {{ value }} ;;
+  dimension: time_of_day {
+    type: number
+    sql: CAST("1705" AS SIGNED) ;;
+    value_format: "0"
   }
 
   dimension: status {

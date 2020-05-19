@@ -35,6 +35,24 @@ view: products {
     sql: ${TABLE}.department ;;
   }
 
+  dimension: department_case_when {
+    type: string
+    case: {
+      when: {
+        label: "Women"
+        sql: ${department}='Women' ;;
+      }
+      when: {
+        label: "Men"
+        sql: ${department}='Men' ;;
+      }
+      when: {
+        label: "Calculated Values"
+        sql: 1=1 ;;
+      }
+    }
+  }
+
   dimension: item_name {
     type: string
     sql: ${TABLE}.item_name ;;
