@@ -2,6 +2,7 @@ connection: "thelook"
 
 # include all the views
 include: "/views/**/*.view"
+# include: "/dashboards/**/*.dashboard"
 
 include: "/Datatests/data_test.lkml"
 include: "/Datatests/data_test_primary_key.lkml"
