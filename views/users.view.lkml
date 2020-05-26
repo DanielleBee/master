@@ -81,6 +81,18 @@ view: users {
 #       label: "Drill Explore"
 #       url:"/explore/danielle_test/order_items?fields=users.city,users.count,orders.count&f[users.state]={{ value }}&f[orders.created_year]={{ _filters['orders.created_year'] | url_encode }}"
 #     }
+    link: {
+      label: "Drill Dashboard"
+      url:"/dashboards/4026?State={{ value | url_encode }}"
+    }
+    # html:
+    # {% if {{_user_attributes['danielle_test']}} == "embed_user"  %}
+    #     <a href="/embed/dashboards-next/4026?State={{ value }}">{{value}}</a>
+    #   {% elsif {{_user_attributes['danielle_test']}} == "user" %}
+    #     <a href="/embed/dashboards-next/4026?State={{ value }}">{{value}}</a>
+    #   {% else %}
+    #     <a href="/embed/dashboards-next/4026?State={{ value }}">{{value}}</a>
+    #   {% endif %};;
   }
 
   dimension: region {
