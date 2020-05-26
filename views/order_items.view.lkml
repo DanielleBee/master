@@ -44,6 +44,15 @@ view: order_items {
     sql: ${TABLE}.sale_price * -1 ;;
   }
 
+  dimension: sale_price_times_1000 {
+    type: number
+    sql: ${TABLE}.sale_price * 10 ;;
+#     value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";[>=100]0.00;[<=-1000000]0.00,,\"M\";[<=-1000]0.00,\"K\";0.00"
+    value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
+#     value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0"
+ }
+
+
   dimension: sale_price_tier {
     type: tier
     tiers: [50, 100, 150, 200]
@@ -93,13 +102,18 @@ view: order_items {
   parameter: metric_selector {
     type: string
     allowed_value: {
-      label: "Total Sale Price"
+      label: "total_sale_price"
       value: "total_sale_price"
    }
     allowed_value: {
-      label: "Total Number of Orders"
+      label: "total_number_of_orders"
       value: "total_number_of_orders"
     }
+    allowed_value: {
+      label: "average_sale_price_per_order"
+      value: "average_sale_price_per_order"
+    }
+    default_value: "total_sale_price"
   }
 
   measure: dynamic_metric {
