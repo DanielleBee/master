@@ -100,6 +100,7 @@ view: order_items {
 ######## Dynamic Measure with Parameters ############
 
   parameter: metric_selector {
+    label: "metric_selector"
     type: string
     allowed_value: {
       label: "total_sale_price"
