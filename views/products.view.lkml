@@ -47,7 +47,7 @@ view: products {
         sql: ${department}='Men' ;;
       }
       when: {
-        label: "Calculated Values"
+        label: "Dummy Value to Create Extra Row for Calculated Values"
         sql: 1=1 ;;
       }
     }
