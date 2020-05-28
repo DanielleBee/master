@@ -79,15 +79,15 @@ view: products {
     default_value: "department"
     allowed_value: {
       value: "department"
-      label: "Department"
+      label: "department_value"
     }
     allowed_value: {
       value: "category"
-      label: "Category"
+      label: "category_label"
     }
     allowed_value: {
       value: "brand"
-      label: "Brand"
+      label: "brand_label"
     }
   }
 

@@ -14,6 +14,19 @@ view: orders {
     html:  <center><font color="#5A2FC2" size="12" >{{ value }}</font></center>;;
   }
 
+  filter: date_filter_1 {
+    type: date
+  }
+
+  filter: date_filter_2 {
+    type: date
+  }
+
+  dimension: is_due_before_created_date {
+    type: yesno
+    sql: DATEDIFF(${created_date}, {% date_end date_filter_1 %}) >= 0 ;;
+  }
+
   parameter: date_granularity {
     description: "Parameter of type: date_time to be used with { % condition % } sql_always_where on explore"
     type: date_time
@@ -192,6 +205,21 @@ view: orders {
   measure: count_of_days {
     type: count_distinct
     sql: ${created_date};;
+  }
+
+  measure: order_count_date_range_1 {
+    type: count_distinct
+    sql: case when ${created_date} >= {% date_start date_filter_1 %} and ${created_date} <= {% date_end date_filter_1 %} then ${id} end ;;
+  }
+
+  measure: order_count_date_range_2 {
+    type: count_distinct
+    sql: case when ${created_date} >= {% date_start date_filter_2 %} and ${created_date} <= {% date_end date_filter_2 %} then ${id} end ;;
+  }
+
+  measure: difference_between_count_date_ranges {
+    type: number
+    sql: ${order_count_date_range_1}-${order_count_date_range_2} ;;
   }
 
   measure: average_order_count_per_day {

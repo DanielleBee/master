@@ -1,7 +1,7 @@
 {
-    "Department": "department",
-    "Category": "category",
-    "Brand": "brand",
+    "department_label": "department",
+    "category_label": "category",
+    "brand_label": "brand",
     "Country": "country",
     "Count_of_Products": "Count of Products",
     "Inexpensive": "Cheap",
