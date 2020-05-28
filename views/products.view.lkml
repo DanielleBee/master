@@ -76,17 +76,17 @@ view: products {
   parameter: select_product_detail {
     description: "Product granularity with parameter set up with allowed values"
     type: unquoted
-    default_value: "department"
+    default_value: "department_value"
     allowed_value: {
-      value: "department"
+      value: "department_value"
       label: "department_value"
     }
     allowed_value: {
-      value: "category"
+      value: "category_value"
       label: "category_label"
     }
     allowed_value: {
-      value: "brand"
+      value: "brand_value"
       label: "brand_label"
     }
   }
@@ -96,9 +96,9 @@ view: products {
     description: "To be used with the Select Product Detail parameter - conditional logic with liquid variables in the sql"
     type: string
     sql:
-    {% if select_product_detail._parameter_value == 'department' %}
+    {% if select_product_detail._parameter_value == 'department_value' %}
       ${department}
-    {% elsif select_product_detail._parameter_value == 'category' %}
+    {% elsif select_product_detail._parameter_value == 'category_value' %}
       ${category}
     {% else %}
       ${brand}
