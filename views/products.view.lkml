@@ -76,7 +76,7 @@ view: products {
   parameter: select_product_detail {
     description: "Product granularity with parameter set up with allowed values"
     type: unquoted
-    default_value: "department_value"
+#     default_value: "department_value"
     allowed_value: {
       value: "department_value"
       label: "department_label"
