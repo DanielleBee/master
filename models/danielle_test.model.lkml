@@ -111,3 +111,5 @@ explore: zozo_table_20190507 {}
 explore: zozo_table_20190508 {}
 
 explore: zozo_table_null {}
+
+explore: orders_by_date_dt {}
