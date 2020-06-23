@@ -2,6 +2,7 @@ view: current_hour {
   derived_table: {
     publish_as_db_view: yes
     datagroup_trigger: danielle_every_hour
+    indexes: ["current_hour"]
     sql: SELECT HOUR(NOW()) as current_hour
       ;;
   }
