@@ -11,12 +11,12 @@ datagroup: danielle_test_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-datagroup: datagroup_test {
-  sql_trigger: SELECT MAX(id) FROM looker_scratch.orders_by_date_dt;;
-  max_cache_age: "0 seconds"
-}
+# datagroup: danielle_datagroup_test {
+#   sql_trigger: SELECT MAX(id) FROM looker_scratch.orders_by_date_dt;;
+#   max_cache_age: "0 seconds"
+# }
 
-datagroup: every_hour {
+datagroup: danielle_every_hour {
   sql_trigger: SELECT FLOOR(UNIX_TIMESTAMP() / (1*60*60)) ;;
 }
 
