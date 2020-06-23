@@ -1,7 +1,7 @@
 view: orders_by_date_dt2 {
   derived_table: {
     sql: SELECT t2.created_at,
-              count(t1.id) as t2_number
+              count(t2.id) as t2_number
               FROM demo_db.orders as t2
 
               group by 1
