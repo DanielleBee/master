@@ -125,6 +125,25 @@ view: orders {
 #     html: Fiscal {{value}} ;;
   }
 
+####### HOW TO SHOW JUST TIME ON AN AXIS IN A CHART
+  dimension: seconds {
+    description: "Time of day reflected as seconds"
+    type: number
+    sql: (extract(hour from ${created_raw}) *60*60) + (extract(minute from ${created_raw}) * 60) + extract(seconds from ${created_raw}) ;;
+  }
+
+  dimension: seconds_formatted_as_time {
+    description: "Time of day reflected as h:mm:ss"
+    type: number
+    sql: sql: ${seconds}/ 86400.0 ;;
+    value_format: "h:mm:ss"
+  }
+
+# To contend with timezone conversions, we can also hard code in a timezone conversion into our seconds calculation,
+# or we can create a parameter that lists out different timezones that we can use to add/subtract the number of hours accordingly
+
+######
+
   dimension: fiscal_month {
     type: date_fiscal_month_num
 # type: date
@@ -217,6 +236,21 @@ view: orders {
       }
     }
   }
+
+  dimension: min_date {
+    type: date
+    sql: MIN(${created_date}) ;;
+  }
+
+  measure: min_date_measure {
+    type: date
+    sql: min(${created_date} ;;
+  }
+
+measure: filtered_by_date {
+  type: sum
+  sql: case when ${created_date} = ${min_date} then ${id} else null ;;
+}
 
   measure: count_of_days {
     type: count_distinct

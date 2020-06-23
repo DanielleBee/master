@@ -1,11 +1,14 @@
 view: orders_by_date_dt {
     derived_table: {
-      sql: SELECT t1.created_at,
-              count(t1.id) as t1_number
+      publish_as_db_view: yes
+      sql: SELECT
+              t1.id,
+              t1.created_at,
+              count(t1.id) as total_count
               FROM demo_db.orders as t1
 
-              group by 1
-              ORDER BY 1 DESC
+              group by 1, 2
+              ORDER BY 2 DESC
                ;;
     }
 
@@ -19,12 +22,12 @@ view: orders_by_date_dt {
       sql: ${TABLE}.created_at ;;
     }
 
-    dimension: t1_number {
+    dimension: total_count {
       type: number
-      sql: ${TABLE}.t1_number ;;
+      sql: ${TABLE}.total_count ;;
     }
 
     set: detail {
-      fields: [created_at_time, t1_number]
+      fields: [created_at_time, total_count]
     }
   }

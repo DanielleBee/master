@@ -11,6 +11,11 @@ datagroup: danielle_test_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+datagroup: datagroup_test {
+  sql_trigger: SELECT MAX(id) FROM looker_scratch.orders_by_date_dt;;
+  max_cache_age: "0 seconds"
+}
+
 persist_with: danielle_test_default_datagroup
 
 explore: connection_reg_r3 {}
