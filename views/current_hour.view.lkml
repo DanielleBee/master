@@ -2,7 +2,7 @@ view: current_hour {
   derived_table: {
     publish_as_db_view: yes
     datagroup_trigger: danielle_every_hour
-    sql: SELECT HOUR(NOW())
+    sql: SELECT HOUR(NOW()) as current_hour
       ;;
   }
 
@@ -11,12 +11,12 @@ view: current_hour {
     drill_fields: [detail*]
   }
 
-  dimension: hournow {
+  dimension: current_hour {
     type: number
-    sql: ${TABLE}.`HOUR(NOW())` ;;
+    sql: ${TABLE}.current_hour ;;
   }
 
   set: detail {
-    fields: [hournow]
+    fields: [current_hour]
   }
 }
