@@ -16,6 +16,10 @@ datagroup: datagroup_test {
   max_cache_age: "0 seconds"
 }
 
+datagroup: every_hour {
+  sql_trigger: SELECT FLOOR(UNIX_TIMESTAMP() / (1*60*60)) ;;
+}
+
 persist_with: danielle_test_default_datagroup
 
 explore: connection_reg_r3 {}
