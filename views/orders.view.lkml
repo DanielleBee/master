@@ -27,6 +27,14 @@ view: orders {
     sql: DATEDIFF(${created_date}, {% date_end date_filter_1 %}) >= 0 ;;
   }
 
+  dimension: time_period_filtered {
+    type: string
+    sql:  CONCAT(CAST({% date_start date_filter_1 %} as date), " to ", cast({% date_end date_filter_1 %} as date));;
+  }
+
+#  CASE WHEN DATEDIFF(EXTRACT(DAY FROM {% date_end date_filter_1 %}), EXTRACT(DAY FROM {% date_start date_filter_1 %})) = 1 THEN {% date_start date_filter_1 %}
+#     ELSE
+
   parameter: date_granularity {
     description: "Parameter of type: date_time to be used with { % condition % } sql_always_where on explore"
     type: date_time
@@ -89,6 +97,12 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: last_day_of_range {
+    type: date
+    datatype: date
+    sql: {% date_end created_date %} ;;
+  }
+
   dimension_group: fiscal_test {
     type: time
     allow_fill: no
@@ -103,6 +117,8 @@ view: orders {
       fiscal_quarter,
       fiscal_quarter_of_year,
       quarter,
+      time,
+      time_of_day,
       year
     ]
     sql: ${TABLE}.created_at ;;
@@ -209,12 +225,19 @@ view: orders {
 
   measure: order_count_date_range_1 {
     type: count_distinct
-    sql: case when ${created_date} >= {% date_start date_filter_1 %} and ${created_date} <= {% date_end date_filter_1 %} then ${id} end ;;
+    sql: case when ${created_date} > {% date_start date_filter_1 %} and ${created_date} <= {% date_end date_filter_1 %} then ${id} end ;;
   }
 
   measure: order_count_date_range_2 {
     type: count_distinct
-    sql: case when ${created_date} >= {% date_start date_filter_2 %} and ${created_date} <= {% date_end date_filter_2 %} then ${id} end ;;
+    sql: case when ${created_date} >= {% date_start date_filter_2 %} and ${created_date} < {% date_end date_filter_2 %} then ${id} end ;;
+  }
+
+  measure: order_count_date_range_3 {
+    type: count_distinct
+    sql: case
+    when ${created_date} >= {% date_start date_filter_1 %} then ${id}
+    end ;;
   }
 
   measure: difference_between_count_date_ranges {
