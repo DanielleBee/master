@@ -147,6 +147,14 @@ view: order_items {
     html: {{ orders.ampersand_test_status._rendered_value }}: Total Price {{ rendered_value }} ;;
   }
 
+  measure: total_sale_price_case_when {
+    type: sum
+    sql: case when ${order_items.returned_date} > ${orders.created_date}
+    then ${sale_price} else 0 end ;;
+    value_format_name: usd_0
+    drill_fields: [drill_set*]
+  }
+
   measure:  percent_of_total_test {
     type: percent_of_total
     direction: "column"
@@ -158,13 +166,13 @@ view: order_items {
 
   measure: count {
     type: count
-    drill_fields: [id, orders.id, inventory_items.id]
+#     drill_fields: [id, orders.id, inventory_items.id]
   }
 
   measure: count_distinct {
     type: count_distinct
     sql: ${id} ;;
-    drill_fields: [id, orders.id, inventory_items.id]
+#     drill_fields: [id, orders.id, inventory_items.id]
   }
 
   measure: counttest {
@@ -178,7 +186,7 @@ view: order_items {
 
   measure: days_between_order_and_return {
     type:  number
-    sql: CASE(${returned_date} IS NOT NULL THEN ${orders.created_date}-${returned_date} ELSE "N/A" END) ;;
+    sql: CASE (${returned_date} IS NOT NULL THEN ${orders.created_date}-${returned_date} ELSE "N/A" END) ;;
   }
 
   measure: largest_order {
@@ -190,5 +198,9 @@ view: order_items {
   measure: total_boxes_needed {
     type: number
     sql: SUM(CASE WHEN ${is_big_order} THEN 2 ELSE 1 END) ;;
+  }
+
+  set: drill_set {
+   fields: [order_id, order_size, products.category, count]
   }
 }

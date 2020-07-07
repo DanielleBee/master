@@ -77,7 +77,14 @@ view: users {
 
   dimension: first_name {
     type: string
+#     can_filter: no
+    skip_drill_filter: yes
     sql: ${TABLE}.first_name ;;
+    html:
+    {% if value == _user_attributes['first_name'] %}
+    {{value}}
+    {% else %}
+    {% endif %};;
   }
 
   dimension: gender {
@@ -214,6 +221,28 @@ view: users {
 
   measure: median_age {
     type: median
+    sql: ${age} ;;
+  }
+
+  measure: 25_percentile_age {
+    type: percentile
+    percentile: 25
+    sql: ${age} ;;
+  }
+
+  measure: 75_percentile_age {
+    type: percentile
+    percentile: 75
+    sql: ${age} ;;
+  }
+
+  measure: min_age {
+    type: min
+    sql: ${age} ;;
+  }
+
+  measure: max_age {
+    type: max
     sql: ${age} ;;
   }
 

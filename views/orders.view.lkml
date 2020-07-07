@@ -87,6 +87,7 @@ view: orders {
       day_of_week,
       day_of_week_index,
       week,
+      week_of_year,
       month,
       month_name,
       month_num,
@@ -96,6 +97,21 @@ view: orders {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension: week_of_year_filter {
+    type: yesno
+    sql: ${created_week_of_year} <= WEEK(NOW()) ;;
+  }
+
+  dimension: created_week_of_year_test {
+    type: date_week_of_year
+    sql: case when ${created_week_of_year} <= WEEK(NOW()) then ${created_week_of_year} else null end ;;
+  }
+
+measure: filtered_count_week_of_year {
+  type: count_distinct
+  sql: case when ${created_week_of_year} <= WEEK(NOW()) then ${id} else null end ;;
+}
 
   dimension: last_day_of_range {
     type: date
@@ -161,6 +177,24 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+  }
+
+  dimension: status_case_when {
+    type: string
+    case: {
+    when: {
+    sql: ${TABLE}.status = "pending" ;;
+      label: "pending"
+    }
+    when: {
+      sql: ${TABLE}.status = "cancelled" ;;
+      label: "cancelled"
+    }
+    when: {
+      sql: ${TABLE}.status = "complete" ;;
+      label: "complete"
+    }
+    }
   }
 
   dimension: ampersand_test_status {
@@ -237,20 +271,10 @@ view: orders {
     }
   }
 
-  dimension: min_date {
-    type: date
-    sql: MIN(${created_date}) ;;
-  }
-
   measure: min_date_measure {
     type: date
     sql: min(${created_date} ;;
   }
-
-measure: filtered_by_date {
-  type: sum
-  sql: case when ${created_date} = ${min_date} then ${id} else null ;;
-}
 
   measure: count_of_days {
     type: count_distinct
@@ -292,6 +316,25 @@ measure: filtered_by_date {
       field: created_day_of_week
       value: "Monday"
     }
+    }
+
+  measure: filtered_order_count {
+    type: count
+    filters: [created_day_of_week: "Monday"]
+  }
+
+  measure: filtered_order_count_case_when {
+    type: count_distinct
+    sql: case when ${created_date} = ${created_week} then ${id} end ;;
+  }
+
+  measure: count_for_week_start_day {
+    type: number
+    sql: {% if orders.created_week._in_query %}
+    ${filtered_order_count}
+    {% else %}
+    ${count}
+    {% endif %};;
   }
 
 }
