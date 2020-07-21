@@ -42,6 +42,15 @@ explore: inventory_items {
   }
 }
 
+explore: orders_by_date_dt {
+  join: orders {
+    type: left_outer
+    sql_on: ${orders_by_date_dt.created_at_date} = ${orders.created_date} ;;
+    relationship: many_to_one
+  }
+}
+
+
 explore: order_items {
   join: orders {
     type: left_outer
@@ -121,6 +130,6 @@ explore: zozo_table_20190508 {}
 
 explore: zozo_table_null {}
 
-explore: orders_by_date_dt {}
+explore: orders_by_date_dt2 {}
 
 explore: current_hour {}

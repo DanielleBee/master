@@ -1,7 +1,7 @@
 view: orders_by_date_dt {
     derived_table: {
-      publish_as_db_view: yes
-      datagroup_trigger: danielle_every_hour
+#       publish_as_db_view: yes
+#       datagroup_trigger: danielle_every_hour
       indexes: ["created_at"]
       sql: SELECT
               t1.id,

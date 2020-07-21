@@ -1,6 +1,6 @@
 view: orders_by_date_dt2 {
   derived_table: {
-    sql: SELECT t2.created_at,
+    sql: SELECT t2.status, t2.created_at,
               count(t2.id) as t2_number
               FROM demo_db.orders as t2
 
@@ -21,7 +21,12 @@ view: orders_by_date_dt2 {
 
   dimension: t2_number {
     type: number
-    sql: ${TABLE}.t1_number ;;
+    sql: ${TABLE}.t2_number ;;
+  }
+
+  dimension: status {
+    type: string
+    sql: ${TABLE}.status ;;
   }
 
   set: detail {

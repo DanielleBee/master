@@ -31,7 +31,9 @@ view: order_items {
       quarter,
       year
     ]
-    sql: ${TABLE}.returned_at ;;
+#     convert_tz: no
+#     sql: CONVERT_TZ(${TABLE}.returned_at,'+00:00','-05:00') ;;
+sql:${TABLE}.returned_at  ;;
   }
 
   dimension: sale_price {
