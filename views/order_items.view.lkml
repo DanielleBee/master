@@ -20,6 +20,15 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
+  filter: returned_date_filter {
+    type: date
+  }
+
+  dimension: returned_is_not_null {
+    type: yesno
+    sql: ${returned_date} is not null ;;
+  }
+
   dimension_group: returned {
     type: time
     timeframes: [
@@ -90,6 +99,11 @@ sql:${TABLE}.returned_at  ;;
     type:  average
     sql: ${sale_price} ;;
     value_format_name: usd
+    drill_fields: [id, order_size, sale_price_tier]
+    html:
+    {% if _user_attributes['last_name'] == "Behette" %} <a href = "{{count._link}}">{{value}}</a>
+{% elsif _user_attributes['last_name'] == "Hicks" %}} <a href = "{{link}}">{{value}}</a>
+{% endif %} ;;
   }
 
   measure: total_sale_price {
@@ -168,7 +182,7 @@ sql:${TABLE}.returned_at  ;;
 
   measure: count {
     type: count
-#     drill_fields: [id, orders.id, inventory_items.id]
+    drill_fields: [id, orders.id, inventory_items.id]
   }
 
   measure: count_distinct {

@@ -209,6 +209,18 @@ view: users {
     }
   }
 
+  measure: count_html_drill {
+    type: count
+    drill_fields: [detail*]
+#     html: <a href="{{link}}&sorts=users.last_name+desc"target="_self"> {{rendered_value}} </a> ;;
+      link: {
+        label: "drill"
+        url: "{{link}}&sorts=users.last_name+asc"
+      }
+  }
+
+#   target="_self"
+
   measure: count_female_users {
     type: count_distinct
     sql:  ${id} ;;
