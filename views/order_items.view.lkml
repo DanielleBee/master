@@ -102,7 +102,7 @@ sql:${TABLE}.returned_at  ;;
     drill_fields: [order_items.id, order_items.order_size, order_items.sale_price_tier]
     html:
     {% if _user_attributes['last_name'] == "Behette" %} <a href = "{{count._link}}">{{rendered_value}}</a>
-{% elsif _user_attributes['last_name'] == "Hicks" %} <a href = "{{average_sale_price.link}}">{{rendered_value}}</a>
+{% elsif _user_attributes['last_name'] == "Hicks" %} <a href = "{{average_sale_price._link}}">{{rendered_value}}</a>
 {% endif %} ;;
   }
 
