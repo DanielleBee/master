@@ -99,10 +99,10 @@ sql:${TABLE}.returned_at  ;;
     type:  average
     sql: ${sale_price} ;;
     value_format_name: usd
-    drill_fields: [id, order_size, sale_price_tier]
+    drill_fields: [order_items.id, order_items.order_size, order_items.sale_price_tier]
     html:
-    {% if _user_attributes['last_name'] == "Behette" %} <a href = "{{count._link}}">{{value}}</a>
-{% elsif _user_attributes['last_name'] == "Hicks" %}} <a href = "{{link}}">{{value}}</a>
+    {% if _user_attributes['last_name'] == "Behette" %} <a href = "{{count._link}}">{{rendered_value}}</a>
+{% elsif _user_attributes['last_name'] == "Hicks" %} <a href = "{{average_sale_price.link}}">{{rendered_value}}</a>
 {% endif %} ;;
   }
 
