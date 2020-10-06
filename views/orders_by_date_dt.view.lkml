@@ -8,7 +8,7 @@ view: orders_by_date_dt {
               t1.created_at,
               count(t1.id) as total_count
               FROM demo_db.orders as t1
-
+WHERE {% condition orders.date_granularity %} t1.created_at {% endcondition %}
               group by 1, 2
               ORDER BY 2 DESC
                ;;

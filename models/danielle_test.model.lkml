@@ -1,7 +1,7 @@
 connection: "thelook"
 
 include: "/views/**/*.view"
-# include: "/dashboards/**/*.dashboard"
+include: "/dashboards/**/*.dashboard"
 
 include: "/Datatests/data_test.lkml"
 include: "/Datatests/data_test_primary_key.lkml"
@@ -26,6 +26,8 @@ explore: connection_reg_r3 {}
 
 explore: derived_test_table_3_20190510 {}
 
+explore: non_window_function_dt {}
+
 # explore: events {
 #   join: users {
 #     type: left_outer
@@ -34,13 +36,21 @@ explore: derived_test_table_3_20190510 {}
 #   }
 # }
 
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-}
+# explore: inventory_items {
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+
+# explore: products_dt_with_param {
+#   join: products {
+#     type: left_outer
+#     sql_on: ${products_dt_with_param.product_level} = ${products.product_hierarchy} ;;
+#     relationship: one_to_many
+#   }
+# }
 
 explore: orders_by_date_dt {
   join: orders {
@@ -96,7 +106,8 @@ explore: orders {
   }
 }
 
-explore: products {}
+# explore: products {
+# }
 
 explore: schema_migrations {}
 

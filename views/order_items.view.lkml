@@ -45,6 +45,19 @@ view: order_items {
 sql:${TABLE}.returned_at  ;;
   }
 
+
+  dimension_group: duration_test {
+    type: duration
+    intervals: [day]
+    sql_start: ${orders.created_raw} ;;
+    sql_end: ${returned_raw} ;;
+  }
+
+  measure: average_duration {
+    type: average
+    sql: ${days_duration_test};;
+  }
+
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
@@ -73,18 +86,21 @@ sql:${TABLE}.returned_at  ;;
   }
 
   dimension: is_big_order {
+    group_label: "Order Size"
     type: yesno
-    sql: ${sale_price}>=1000 ;;
+    sql: ${sale_price}>=500 ;;
   }
 
   dimension: is_medium_order {
+    group_label: "Order Size"
     type: yesno
-    sql: ${sale_price}<1000 AND ${sale_price} >=500;;
+    sql: ${sale_price}< 500 AND ${sale_price} >=100;;
   }
 
   dimension: is_small_order {
+    group_label: "Order Size"
     type: yesno
-    sql: ${sale_price}<500;;
+    sql: ${sale_price}<100;;
   }
 
   dimension: order_size {
@@ -212,8 +228,19 @@ sql:${TABLE}.returned_at  ;;
   }
 
   measure: total_boxes_needed {
+    description: "big box"
     type: number
     sql: SUM(CASE WHEN ${is_big_order} THEN 2 ELSE 1 END) ;;
+  }
+
+  measure: count_big_orders_yes {
+    type: count
+    filters: [is_big_order: "yes"]
+  }
+
+  measure: big_orders_yes {
+    type: yesno
+    sql: ${total_sale_price}>=500 ;;
   }
 
   set: drill_set {

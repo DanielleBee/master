@@ -16,7 +16,7 @@ view: products {
   dimension: brand_with_html {
     type: string
     sql: CONCAT(${brand}," - ",${item_name}) ;;
-    html: <a href="https://google.com/search?q={{brand._value}}" target="_blank" >{{value}}</a> ;;
+    html: <a href="https://google.com/search?q={{brand._value}}" target="new" >{{value}}</a> ;;
   }
 
   dimension: brand_without_html {
@@ -28,6 +28,11 @@ view: products {
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
+  }
+
+  dimension: categories_yesno {
+    type: yesno
+    sql: ${category} = "Jeans" OR ${category} = "Accessories";;
   }
 
   dimension: department {
@@ -51,6 +56,22 @@ view: products {
         sql: 1=1 ;;
       }
     }
+  }
+
+  filter: date_filter_1 {
+    type: date
+  }
+
+  filter: date_filter_2 {
+    type: date
+  }
+
+  dimension: dept_case_when_2 {
+    type: string
+    sql: case when ${orders.created_date} = {% date_start date_filter_1 %} then {% date_start date_filter_1 %}
+    when ${orders.created_date} = {% date_end date_filter_2 %} then {% date_end date_filter_2 %}
+    else "Difference"
+    end;;
   }
 
   dimension: item_name {
@@ -104,6 +125,12 @@ view: products {
       ${brand}
     {% endif %} ;;
   }
+
+filter: category_filter_field {
+  type: string
+  suggestions: ["Jeans","Accessories","Tops","Suits","Coats"]
+}
+
 
   measure: count {
     type: count

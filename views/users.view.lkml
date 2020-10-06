@@ -166,9 +166,9 @@ view: users {
 
   dimension: region {
     type: string
-    sql: case when users.state in ("Maine", "Massachusetts", "Connecticut", "Vermont") then "Northeast"
+    sql: case when users.state in ("Maine", "Massachusetts", "Connecticut", "Vermont","Rhode Island","New Hampshire") then "New England"
     when users.state in ("Washington", "Oregon") then "Pacific Northwest"
-    when users.state in ("Florida", "Alabama", "Mississippi", "South Carolina", "Georgia") then "South"
+    when users.state in ("Florida", "Alabama", "Mississippi", "South Carolina", "Georgia", "Louisiana") then "South"
     when users.state in ("Arizona", "New Mexico", "Nevada") then "Southwest"
     else "No Region Assigned"
     end;;
@@ -177,7 +177,12 @@ view: users {
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
-    html: {{ users.state._rendered_value }} ;;
+#     html: {{ users.state._rendered_value }} ;;
+  }
+
+  dimension: city_state_zip {
+    type: string
+    sql: concat(${city},", ",${state}, ": ", ${zip}) ;;
   }
 
   measure: count {
@@ -256,6 +261,11 @@ view: users {
   measure: max_age {
     type: max
     sql: ${age} ;;
+  }
+
+  measure: count_cities {
+    type: count_distinct
+    sql: ${city} ;;
   }
 
   # ----- Sets of fields for drilling ------
