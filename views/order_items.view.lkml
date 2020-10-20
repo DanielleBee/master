@@ -129,7 +129,7 @@ sql:${TABLE}.returned_at  ;;
 #       value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
   }
 
-
+## agg awareness measures type:number testing
   measure: sum_sale_price_type_number {
     type: number
     sql: sum(${sale_price}) ;;
@@ -139,6 +139,14 @@ sql:${TABLE}.returned_at  ;;
     type: number
     sql: count(${sale_price}) ;;
   }
+
+  measure: reference_sums_and_divide {
+    type: number
+    sql: 1.0*${total_sale_price}/nullif(${total_sale_price},${total_sale_price}+2) ;;
+  }
+###############
+
+
 
 ######## Dynamic Measure with Parameters ############
 
