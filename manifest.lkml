@@ -7,7 +7,7 @@ project_name: "danielle_test"
 #   project: "name_of_other_project"
 # }
 
-localization_settings: {
-  default_locale: en
-  localization_level: permissive
-}
+# localization_settings: {
+#   default_locale: en
+#   localization_level: permissive
+# }

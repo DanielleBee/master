@@ -22,6 +22,21 @@ datagroup: danielle_every_hour {
 
 # persist_with: danielle_test_default_datagroup
 
+# Place in `danielle_test` model
+explore: +order_items {
+  aggregate_table: rollup__orders_created_date__orders_status {
+    query: {
+      dimensions: [orders.created_date, orders.status]
+      measures: [sum_sale_price_type_number]
+      timezone: "America/Los_Angeles"
+    }
+
+    materialization: {
+      persist_for: "24 hours"
+    }
+  }
+}
+
 explore: connection_reg_r3 {}
 
 explore: derived_test_table_3_20190510 {}

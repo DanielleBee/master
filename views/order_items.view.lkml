@@ -129,6 +129,17 @@ sql:${TABLE}.returned_at  ;;
 #       value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
   }
 
+
+  measure: sum_sale_price_type_number {
+    type: number
+    sql: sum(${sale_price}) ;;
+  }
+
+  measure: count_sale_price_type_number {
+    type: number
+    sql: count(${sale_price}) ;;
+  }
+
 ######## Dynamic Measure with Parameters ############
 
   parameter: metric_selector {
