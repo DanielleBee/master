@@ -4,14 +4,14 @@
   elements:
   - title: Table Legacy, One Pivot
     name: Table Legacy, One Pivot
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: table
-    fields: [order_items.created_date, products.category, order_items.count]
+    fields: [orders.created_date, products.category, order_items.count]
     pivots: [products.category]
     filters:
-      order_items.created_date: 1 months
-    sorts: [order_items.created_date desc, products.category]
+      orders.created_date: 1 months
+    sorts: [orders.created_date desc, products.category]
     limit: 500
     column_limit: 50
     total: true
@@ -34,18 +34,18 @@
     height: 14
   - title: Table Next No Pivots
     name: Table Next No Pivots
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: looker_grid
-    fields: [products.category, products.department, order_items.status, users.country,
-      products.count, users.count, order_items.average_order_price]
+    fields: [products.category, products.department, orders.status, users.country,
+      products.count, users.count, order_items.average_sale_price]
     filters:
       products.department: Women
-      order_items.status: Complete
+      orders.status: Complete
       users.country: UK
-    sorts: [products.category, products.department, order_items.status, products.count
+    sorts: [products.category, products.department, orders.status, products.count
         desc]
-    subtotals: [products.category, products.department, order_items.status]
+    subtotals: [products.category, products.department, orders.status]
     limit: 500
     column_limit: 50
     total: true
@@ -70,15 +70,15 @@
     series_column_widths:
       products.count: 132
       users.count: 164
-      order_items.average_order_price: 198
+      order_items.average_sale_price: 198
     series_cell_visualizations:
       products.count:
         is_active: false
     series_text_format:
-      order_items.average_order_price:
+      order_items.average_sale_price:
         bg_color: "#C2DD67"
     conditional_formatting: []
-    hidden_fields: [users.country, products.department, order_items.status]
+    hidden_fields: [users.country, products.department, orders.status]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -113,15 +113,15 @@
     height: 14
   - title: Table Legacy, One Pivot, Three Measures
     name: Table Legacy, One Pivot, Three Measures
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: table
-    fields: [order_items.created_date, products.count, order_items.count, order_items.average_order_price,
+    fields: [orders.created_date, products.count, order_items.count, order_items.average_sale_price,
       products.category]
     pivots: [products.category]
     filters:
-      order_items.created_date: 1 months
-    sorts: [order_items.created_date desc, products.category]
+      orders.created_date: 1 months
+    sorts: [orders.created_date desc, products.category]
     limit: 500
     column_limit: 50
     total: true
@@ -158,18 +158,18 @@
     height: 16
   - title: Table Next No Pivots (copy)
     name: Table Next No Pivots (copy)
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: looker_grid
-    fields: [products.category, products.department, order_items.status, users.country,
-      products.count, users.count, order_items.average_order_price]
+    fields: [products.category, products.department, orders.status, users.country,
+      products.count, users.count, order_items.average_sale_price]
     filters:
       products.department: Women
-      order_items.status: Complete
+      orders.status: Complete
       users.country: UK
-    sorts: [products.category, products.department, order_items.status, products.count
+    sorts: [products.category, products.department, orders.status, products.count
         desc]
-    subtotals: [products.category, products.department, order_items.status]
+    subtotals: [products.category, products.department, orders.status]
     limit: 500
     column_limit: 50
     total: true
@@ -196,10 +196,10 @@
       products.count:
         is_active: false
     series_text_format:
-      order_items.average_order_price:
+      order_items.average_sale_price:
         bg_color: "#C2DD67"
     conditional_formatting: []
-    hidden_fields: [users.country, products.department, order_items.status]
+    hidden_fields: [users.country, products.department, orders.status]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -234,18 +234,18 @@
     height: 14
   - title: Table Next No Pivots - size col to fit
     name: Table Next No Pivots - size col to fit
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: looker_grid
-    fields: [products.category, products.department, order_items.status, users.country,
-      products.count, users.count, order_items.average_order_price]
+    fields: [products.category, products.department, orders.status, users.country,
+      products.count, users.count, order_items.average_sale_price]
     filters:
       products.department: Women
-      order_items.status: Complete
+      orders.status: Complete
       users.country: UK
-    sorts: [products.category, products.department, order_items.status, products.count
+    sorts: [products.category, products.department, orders.status, products.count
         desc]
-    subtotals: [products.category, products.department, order_items.status]
+    subtotals: [products.category, products.department, orders.status]
     limit: 500
     column_limit: 50
     total: true
@@ -272,10 +272,10 @@
       products.count:
         is_active: false
     series_text_format:
-      order_items.average_order_price:
+      order_items.average_sale_price:
         bg_color: "#C2DD67"
     conditional_formatting: []
-    hidden_fields: [users.country, products.department, order_items.status]
+    hidden_fields: [users.country, products.department, orders.status]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -310,18 +310,18 @@
     height: 14
   - title: Table Legacy no pivots
     name: Table Legacy no pivots
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: table
-    fields: [products.category, products.department, order_items.status, users.country,
-      products.count, users.count, order_items.average_order_price]
+    fields: [products.category, products.department, orders.status, users.country,
+      products.count, users.count, order_items.average_sale_price]
     filters:
       products.department: Women
-      order_items.status: Complete
+      orders.status: Complete
       users.country: UK
-    sorts: [products.category, products.department, order_items.status, products.count
+    sorts: [products.category, products.department, orders.status, products.count
         desc]
-    subtotals: [products.category, products.department, order_items.status]
+    subtotals: [products.category, products.department, orders.status]
     limit: 500
     column_limit: 50
     total: true
@@ -344,18 +344,18 @@
     series_column_widths:
       products.count: 132
       users.count: 164
-      order_items.average_order_price: 198
+      order_items.average_sale_price: 198
     series_cell_visualizations:
       products.count:
         is_active: false
     series_text_format:
-      order_items.average_order_price:
+      order_items.average_sale_price:
         bg_color: "#C2DD67"
     header_text_alignment: left
     header_font_size: '12'
     rows_font_size: '12'
     conditional_formatting: []
-    hidden_fields: [users.country, products.department, order_items.status]
+    hidden_fields: [users.country, products.department, orders.status]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
@@ -390,15 +390,15 @@
     height: 14
   - title: Table Next One Pivot, Three Measures
     name: Table Next One Pivot, Three Measures
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: looker_grid
-    fields: [order_items.created_date, products.count, order_items.count, order_items.average_order_price,
+    fields: [orders.created_date, products.count, order_items.count, order_items.average_sale_price,
       products.category]
     pivots: [products.category]
     filters:
-      order_items.created_date: 1 months
-    sorts: [order_items.created_date desc, products.category]
+      orders.created_date: 1 months
+    sorts: [orders.created_date desc, products.category]
     limit: 500
     column_limit: 50
     total: true
@@ -447,18 +447,18 @@
     height: 16
   - title: Table Next No Pivots - no widths specified but not sized to fit
     name: Table Next No Pivots - no widths specified but not sized to fit
-    model: snowflake_test
+    model: danielle_test
     explore: order_items
     type: looker_grid
-    fields: [products.category, products.department, order_items.status, users.country,
-      products.count, users.count, order_items.average_order_price]
+    fields: [products.category, products.department, orders.status, users.country,
+      products.count, users.count, order_items.average_sale_price]
     filters:
       products.department: Women
-      order_items.status: Complete
+      orders.status: Complete
       users.country: UK
-    sorts: [products.category, products.department, order_items.status, products.count
+    sorts: [products.category, products.department, orders.status, products.count
         desc]
-    subtotals: [products.category, products.department, order_items.status]
+    subtotals: [products.category, products.department, orders.status]
     limit: 500
     column_limit: 50
     total: true
@@ -485,10 +485,10 @@
       products.count:
         is_active: false
     series_text_format:
-      order_items.average_order_price:
+      order_items.average_sale_price:
         bg_color: "#C2DD67"
     conditional_formatting: []
-    hidden_fields: [users.country, products.department, order_items.status]
+    hidden_fields: [users.country, products.department, orders.status]
     x_axis_gridlines: false
     y_axis_gridlines: true
     show_y_axis_labels: true
