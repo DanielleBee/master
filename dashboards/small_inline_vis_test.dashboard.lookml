@@ -1,8 +1,3 @@
-- dashboard: small_inline_vis_test
-  title: Small Inline Vis Test
-  layout: newspaper
-  tile_size: 100
-
 - dashboard: inline_vis_email_test_copy
   title: Inline Vis Email Test (copy)
   layout: newspaper
