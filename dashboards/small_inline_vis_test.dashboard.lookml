@@ -1,5 +1,5 @@
 - dashboard: small_inline_vis_test
-  title: Small Inline Vis Test
+  title: Small Inline Vis Test Dash
   layout: newspaper
   elements:
   - title: Table Legacy, One Pivot
@@ -9,8 +9,6 @@
     type: table
     fields: [orders.created_date, products.category, order_items.count]
     pivots: [products.category]
-    filters:
-      orders.created_date: 1 months
     sorts: [orders.created_date desc, products.category]
     limit: 500
     column_limit: 50
@@ -28,7 +26,7 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Date: inventory_items.created_date
+      Date: orders.created_date
     row: 0
     col: 0
     width: 24
@@ -108,7 +106,7 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Date: inventory_items.created_date
+      Date: orders.created_date
     row: 14
     col: 0
     width: 24
@@ -121,8 +119,6 @@
     fields: [orders.created_date, products.count, order_items.count, order_items.average_sale_price,
       products.category]
     pivots: [products.category]
-    filters:
-      orders.created_date: 1 months
     sorts: [orders.created_date desc, products.category]
     limit: 500
     column_limit: 50
@@ -154,7 +150,7 @@
     series_types: {}
     defaults_version: 1
     listen:
-      Date: inventory_items.created_date
+      Date: orders.created_date
     row: 28
     col: 0
     width: 24
@@ -169,4 +165,4 @@
     model: danielle_test
     explore: order_items
     listens_to_filters: []
-    field: inventory_items.created_date
+    field: orders.created_date
