@@ -40,8 +40,8 @@
       products.count, users.count, order_items.average_sale_price]
     filters:
       products.department: Women
-      orders.status: Complete
-      users.country: US
+      orders.status: complete
+      users.country: USA
     sorts: [products.category, products.department, orders.status, products.count
         desc]
     subtotals: [products.category, products.department, orders.status]
