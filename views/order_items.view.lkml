@@ -116,10 +116,32 @@ sql:${TABLE}.returned_at  ;;
     sql: ${sale_price} ;;
     value_format_name: usd
     drill_fields: [order_items.id, order_items.order_size, order_items.sale_price_tier]
-    html:
-    {% if _user_attributes['last_name'] == "Behette" %} <a href = "{{order_items.count._link}}">{{rendered_value}}</a>
-{% elsif _user_attributes['last_name'] == "Hicks" %} <a href = "{{order_items.average_sale_price._link}}">{{rendered_value}}</a>
-{% endif %} ;;
+#     html:
+#     {% if _user_attributes['last_name'] == "Behette" %} <a href = "{{order_items.count._link}}">{{rendered_value}}</a>
+# {% elsif _user_attributes['last_name'] == "Hicks" %} <a href = "{{order_items.average_sale_price._link}}">{{rendered_value}}</a>
+# {% endif %} ;;
+  }
+
+  measure: avg_sale_price_with_zeros {
+    type: average
+    sql: case when ${sale_price} < 10 then ${sale_price}-${sale_price} else ${sale_price} end ;;
+  }
+
+  measure: avg_sale_price_more_than_10 {
+    type: average
+    sql: ${sale_price} > 10 ;;
+  }
+
+  dimension: sale_price_more_than_10 {
+    type: yesno
+    sql: ${sale_price} > 10 ;;
+  }
+
+  measure: average_sale_price_yesno {
+    type: average
+    sql: ${sale_price} ;;
+    # filters: [sale_price_more_than_10: "yes"]
+    filters: [sale_price: ">10"]
   }
 
   measure: total_sale_price {
