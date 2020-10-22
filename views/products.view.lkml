@@ -30,6 +30,19 @@ view: products {
     sql: ${TABLE}.category ;;
   }
 
+  dimension: category_capitalization_differences {
+    type: string
+    sql: case when ${category} = "Leggings" then " jeans (has a leading space)"
+    when ${category} = "Accessories" then "accessories"
+    when ${category} = "Skirts" then "socks"
+    when ${category} = "Plus" then "jeans-hi"
+    when ${category} = "Maternity" then "pants"
+    when ${category} = "Swim" then null
+    when ${category} = "Shorts" then "jeans"
+    else ${category}
+    end;;
+  }
+
   dimension: categories_yesno {
     type: yesno
     sql: ${category} = "Jeans" OR ${category} = "Accessories";;

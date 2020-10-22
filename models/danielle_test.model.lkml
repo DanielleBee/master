@@ -37,6 +37,8 @@ explore: +order_items {
   }
 }
 
+explore: products_dt_capitalization {}
+
 explore: connection_reg_r3 {}
 
 explore: derived_test_table_3_20190510 {}

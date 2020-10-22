@@ -43,19 +43,20 @@ view: order_items {
 #     convert_tz: no
 #     sql: CONVERT_TZ(${TABLE}.returned_at,'+00:00','-05:00') ;;
 sql:${TABLE}.returned_at  ;;
+drill_fields: []
   }
 
 
   dimension_group: duration_test {
     type: duration
-    intervals: [day]
+    intervals: [day,second]
     sql_start: ${orders.created_raw} ;;
     sql_end: ${returned_raw} ;;
   }
 
   measure: average_duration {
     type: average
-    sql: ${days_duration_test};;
+    sql: ${seconds_duration_test};;
   }
 
   dimension: sale_price {
