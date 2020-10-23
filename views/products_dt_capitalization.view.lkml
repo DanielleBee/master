@@ -2,7 +2,7 @@ view: products_dt_capitalization {
     derived_table: {
       sql: -- Did not use order_items::rollup__orders_created_date__orders_status; it does not include the following fields in the query: products.category_capitalization_differences, products.category, orders.count
               SELECT
-                  case when products.category = "Leggings" then " jeans (has a leading space)"
+                  case when products.category = "Leggings" then "pants"
                   when products.category = "Accessories" then "accessories"
                   when products.category = "Skirts" then "socks"
                   when products.category = "Plus" then "jeans-hi"
@@ -21,7 +21,7 @@ view: products_dt_capitalization {
                   1,
                   2
               ORDER BY
-                  case when products.category = "Leggings" then " jeans (has a leading space)"
+                  case when products.category = "Leggings" then "pants"
                   when products.category = "Accessories" then "accessories"
                   when products.category = "Skirts" then "socks"
                   when products.category = "Plus" then "jeans-hi"
@@ -31,9 +31,9 @@ view: products_dt_capitalization {
                   else products.category
                   end
               LIMIT 500
-               ;;
-              indexes: ["products_category_capitalization_differences"]
-      persist_for: "24 hours"
+              ;;
+      #         indexes: ["products_category_capitalization_differences"]
+      # persist_for: "24 hours"
     }
 
     measure: count {
