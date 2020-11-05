@@ -152,6 +152,22 @@ drill_fields: []
 #       value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
   }
 
+  measure: total_sale_price_html_param {
+    type:  sum
+    sql: ${sale_price} ;;
+    value_format_name: decimal_2
+    html: <a href="{{link}}"> €{{rendered_value}} </a> ;;
+    drill_fields: [drill_set*]
+  }
+
+  measure: total_sale_price_html_param_2 {
+    type:  sum
+    sql: ${sale_price} ;;
+    value_format_name: decimal_2
+    html: <a href="{{link}}"> {{rendered_value}} EUR </a> ;;
+    drill_fields: [drill_set*]
+  }
+
 ## agg awareness measures type:number testing
   measure: sum_sale_price_type_number {
     type: number

@@ -12,6 +12,7 @@ view: products_dt_capitalization {
                   else products.category
                   end AS `products.category_capitalization_differences`,
                   products.category  AS `products.category`,
+                  products.department AS `products.department`,
                   COUNT(DISTINCT orders.id ) AS `orders.count`
               FROM demo_db.order_items  AS order_items
               LEFT JOIN demo_db.orders  AS orders ON order_items.order_id = orders.id
@@ -49,6 +50,11 @@ view: products_dt_capitalization {
     dimension: products_category {
       type: string
       sql: ${TABLE}.`products.category` ;;
+    }
+
+    dimension: products_department {
+      type: string
+      sql: ${TABLE}.`products.department` ;;
     }
 
     dimension: orders_count {
