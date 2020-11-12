@@ -2,6 +2,23 @@ view: users {
   sql_table_name: demo_db.users ;;
   drill_fields: [id]
 
+########################## HTML Images ###################################
+
+  dimension: aon_logo {
+    type: string
+    sql: 1 ;;
+    html: <img src="https://cdn.filestackcontent.com/fMVx1x2rQb5oHLv0QA4l" height=60% width=60% /> ;;
+  }
+
+dimension: aon_logo_div_tags {
+    type: string
+    sql: 1 ;;
+    html: <div class="single-value"><img src="https://cdn.filestackcontent.com/fMVx1x2rQb5oHLv0QA4l" height=60% width=60% /> </div> ;;
+}
+
+#########################################################################
+
+
   dimension: id {
     primary_key: yes
     hidden: yes

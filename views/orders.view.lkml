@@ -355,4 +355,53 @@ measure: filtered_count_week_of_year {
     {% endif %};;
   }
 
+
+  # measure: postion_weighted_share {
+  #   label: "Position Weighted Share"
+  #   group_label: "Position Weighted Share of Search"
+  #   type: number
+  #   value_format_name: percent_1
+  #   sql: sum(${position_score}) / ${total_score} ;;
+  #   html:
+  #   {% if client_search.postion_weighted_share._value < 0.29 and client_search.dynamic_selection._value == "Ready to Eat Cereal" %}
+  #   <p style="color:red">{{ rendered_value }}</p>
+  #   {% elsif client_search.postion_weighted_share._value > 0.3 and client_search.dynamic_selection._value == "Ready to Eat Cereal" %}
+  #   <p style="color:green">{{ rendered_value }}</p>
+
+
+  #   {% elsif client_search.postion_weighted_share._value < 0.262 and client_search.dynamic_selection._value == "Crackers" %}
+  #   <p style="color:red">{{ rendered_value }}</p>
+  #   {% elsif client_search.postion_weighted_share._value > 0.272 and client_search.dynamic_selection._value == "Crackers" %}
+  #   <p style="color:green">{{ rendered_value }}</p>
+
+
+  #   {% elsif client_search.postion_weighted_share._value < 0.045 and client_search.dynamic_selection._value == "Chips" %}
+  #   <p style="color:red">{{ rendered_value }}</p>
+  #   {% elsif client_search.postion_weighted_share._value > 0.055 and client_search.dynamic_selection._value == "Chips" %}
+  #   <p style="color:green">{{ rendered_value }}</p>
+
+
+
+  #   {% elsif client_search.postion_weighted_share._value < 0.117 and client_search.dynamic_selection._value == "Portable Wholesome Snacks" %}
+  #   <p style="color:red">{{ rendered_value }}</p>
+  #   {% elsif client_search.postion_weighted_share._value > 0.127 and client_search.dynamic_selection._value == "Portable Wholesome Snacks" %}
+  #   <p style="color:green">{{ rendered_value }}</p>
+
+
+  #   {% elsif client_search.postion_weighted_share._value < 0.271 and client_search.dynamic_selection._value == "Frozen Breakfast" %}
+  #   <p style="color:red">{{ rendered_value }}</p>
+  #   {% elsif client_search.postion_weighted_share._value > 0.281 and client_search.dynamic_selection._value == "Frozen Breakfast" %}
+  #   <p style="color:green">{{ rendered_value }}</p>
+
+
+  #   {% elsif client_search.postion_weighted_share._value < 0.272 and client_search.dynamic_selection._value == "Frozen Veggie" %}
+  #   <p style="color:red">{{ rendered_value }}</p>
+  #   {% elsif client_search.postion_weighted_share._value > 0.282 and client_search.dynamic_selection._value == "Frozen Veggie" %}
+  #   <p style="color:green">{{ rendered_value }}</p>
+
+  #   {% else %}
+  #   <p style="color: black">{{ rendered_value }}</p>
+  #   {% endif %};;
+  # }
+
 }
