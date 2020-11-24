@@ -83,7 +83,6 @@ explore: orders {
 #   {% else %}
 #   1=1
 #   {% endif %} ;;
-  sql_always_where: ${45_date_range_dimension_ref} ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
