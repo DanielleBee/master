@@ -69,9 +69,9 @@ drill_fields: []
     sql: ${TABLE}.sale_price * -1 ;;
   }
 
-  dimension: sale_price_times_1000 {
+  dimension: sale_price_times_100 {
     type: number
-    sql: ${TABLE}.sale_price * 10 ;;
+    sql: ${TABLE}.sale_price * 100 ;;
 #     value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";[>=100]0.00;[<=-1000000]0.00,,\"M\";[<=-1000]0.00,\"K\";0.00"
     value_format: "[>=1000000000]0.00,,,\"B\";[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0.00"
 #     value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";0"
@@ -79,34 +79,48 @@ drill_fields: []
 
 
   dimension: sale_price_manual_tiers {
-    type: tier
-    tiers: [10, 25, 50, 100, 125, 200, 250, 1000]
-    style: integer
-    sql: ${sale_price} ;;
+    type: string
+    sql: case when ${sale_price_times_100} <= 1000 then 'Under $1000'
+    when ${sale_price_times_100} > 1000 AND ${sale_price_times_100} <= 2500 then '$1,000 - $2,500'
+    when ${sale_price_times_100} > 2500 AND ${sale_price_times_100} <= 5000 then '$2,500 - $5,000'
+    when ${sale_price_times_100} > 5000 AND ${sale_price_times_100} <= 10000 then '$5,000 - $10,000'
+    when ${sale_price_times_100} > 10000 AND ${sale_price_times_100} <= 12500 then '$10,000 - $12,500'
+    when ${sale_price_times_100} > 12500 AND ${sale_price_times_100} <= 20000 then '$12,500 - $20,000'
+    when ${sale_price_times_100} > 20000 AND ${sale_price_times_100} <= 25000 then '$20,000 - $25,000'
+    when ${sale_price_times_100} > 25000 AND ${sale_price_times_100} <= 100000 then 'Above $100,000'
+    else null end;;
+    order_by_field: sort_order_2
   }
 
-  dimension: sale_price_tier_order_by_field {
-    type: tier
-    tiers: [10, 25, 50, 100, 125, 200, 250, 1000]
-    style: integer
-    sql: ${sale_price} ;;
-    value_format_name:  usd_0
-    order_by_field: sort_order
-  }
-
-  dimension: sort_order {
+  dimension: sort_order_2 {
     type: number
-    sql: case when ${sale_price} <= 10 then 10
-    when ${sale_price} > 10 AND ${sale_price} <= 25 then 25
-    when ${sale_price} > 25 AND ${sale_price} <= 50 then 50
-    when ${sale_price} > 50 AND ${sale_price} <= 100 then 100
-    when ${sale_price} > 100 AND ${sale_price} <= 125 then 125
-    when ${sale_price} > 125 AND ${sale_price} <= 200 then 200
-    when ${sale_price} > 200 AND ${sale_price} <= 250 then 250
-    when ${sale_price} > 250 AND ${sale_price} <= 1000 then 1000
-    else null end
-    ;;
+    sql: case when ${sale_price_manual_tiers} = 'Under $1000' then '1'
+        when ${sale_price_manual_tiers} <> 'Unknown' then split(replace(${sale_price_manual_tiers},'$',''),',')[offset(0)] else null end
+       ;;
   }
+
+  # dimension: sale_price_tier_order_by_field {
+  #   type: tier
+  #   tiers: [10, 25, 50, 100, 125, 200, 250, 1000]
+  #   style: integer
+  #   sql: ${sale_price} ;;
+  #   value_format_name:  usd_0
+  #   order_by_field: sort_order
+  # }
+
+  # dimension: sort_order {
+  #   type: number
+  #   sql: case when ${sale_price} <= 10 then 10
+  #   when ${sale_price} > 10 AND ${sale_price} <= 25 then 25
+  #   when ${sale_price} > 25 AND ${sale_price} <= 50 then 50
+  #   when ${sale_price} > 50 AND ${sale_price} <= 100 then 100
+  #   when ${sale_price} > 100 AND ${sale_price} <= 125 then 125
+  #   when ${sale_price} > 125 AND ${sale_price} <= 200 then 200
+  #   when ${sale_price} > 200 AND ${sale_price} <= 250 then 250
+  #   when ${sale_price} > 250 AND ${sale_price} <= 1000 then 1000
+  #   else null end
+  #   ;;
+  # }
 
   dimension: is_big_order {
     group_label: "Order Size"

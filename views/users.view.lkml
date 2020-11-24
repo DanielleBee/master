@@ -16,6 +16,11 @@ dimension: aon_logo_div_tags {
     html: <div class="single-value"><img src="https://cdn.filestackcontent.com/fMVx1x2rQb5oHLv0QA4l" height=60% width=60% /> </div> ;;
 }
 
+dimension: brooklyn_brewery {
+  type: string
+  sql:  1 ;;
+  html: <img src="https://www.miltonglaser.com/thumbs/665x408/files/zc/Brooklynlogo-1088.jpg" height=70% width=70% />  ;;
+}
 #########################################################################
 
 

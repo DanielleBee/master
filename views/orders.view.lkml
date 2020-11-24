@@ -27,9 +27,48 @@ view: orders {
     sql: DATEDIFF(${created_date}, {% date_end date_filter_1 %}) >= 0 ;;
   }
 
+  dimension: 45_date_range {
+    type: yesno
+    sql: DATEDIFF({% date_end date_filter_1 %}, {% date_start date_filter_1 %}) <= 45;;
+  }
+
+  dimension: 45_date_range_dimension_ref {
+    type: yesno
+    sql: DATEDIFF({% date_end created_date %}, {% date_start created_date %}) <= 45;;
+  }
+
+
   dimension: time_period_filtered {
     type: string
     sql:  CONCAT(CAST({% date_start date_filter_1 %} as date), " to ", cast({% date_end date_filter_1 %} as date));;
+  }
+
+  dimension_group: create_test {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      time_of_day,
+      hour_of_day,
+      date,
+      day_of_week,
+      day_of_week_index,
+      week,
+      week_of_year,
+      month,
+      month_name,
+      month_num,
+      day_of_month,
+      quarter,
+      year
+    ]
+    # sql: {% condition date_filter_1 %} ${TABLE}.created_at {% endcondition %};;
+    sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: created_test_date {
+    type: date
+    sql: {% condition date_filter_1 %} ${create_test_date} {% endcondition %} ;;
   }
 
 #  CASE WHEN DATEDIFF(EXTRACT(DAY FROM {% date_end date_filter_1 %}), EXTRACT(DAY FROM {% date_start date_filter_1 %})) = 1 THEN {% date_start date_filter_1 %}

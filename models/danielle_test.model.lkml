@@ -6,11 +6,6 @@ include: "/dashboards/**/*.dashboard"
 include: "/Datatests/data_test.lkml"
 include: "/Datatests/data_test_primary_key.lkml"
 
-# datagroup: danielle_test_default_datagroup {
-#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-#   max_cache_age: "1 hour"
-# }
-
 datagroup: danielle_datagroup_test {
   sql_trigger: SELECT MAX(current_hour) FROM sandbox_scratch.LB_danielle_test_current_hour;;
   max_cache_age: "0 seconds"
@@ -20,9 +15,6 @@ datagroup: danielle_every_hour {
   sql_trigger: SELECT FLOOR(UNIX_TIMESTAMP() / (1*60*60)) ;;
 }
 
-# persist_with: danielle_test_default_datagroup
-
-# Place in `danielle_test` model
 explore: +order_items {
   aggregate_table: rollup__orders_created_date__orders_status {
     query: {
@@ -45,30 +37,6 @@ explore: derived_test_table_3_20190510 {}
 
 explore: non_window_function_dt {}
 
-# explore: events {
-#   join: users {
-#     type: left_outer
-#     sql_on: ${events.user_id} = ${users.id} ;;
-#     relationship: many_to_one
-#   }
-# }
-
-# explore: inventory_items {
-#   join: products {
-#     type: left_outer
-#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
-#     relationship: many_to_one
-#   }
-# }
-
-# explore: products_dt_with_param {
-#   join: products {
-#     type: left_outer
-#     sql_on: ${products_dt_with_param.product_level} = ${products.product_hierarchy} ;;
-#     relationship: one_to_many
-#   }
-# }
-
 explore: orders_by_date_dt {
   join: orders {
     type: left_outer
@@ -76,7 +44,6 @@ explore: orders_by_date_dt {
     relationship: many_to_one
   }
 }
-
 
 explore: order_items {
   join: orders {
@@ -116,6 +83,7 @@ explore: orders {
 #   {% else %}
 #   1=1
 #   {% endif %} ;;
+  sql_always_where: ${45_date_range_dimension_ref} ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -143,6 +111,30 @@ explore: derived_table {
     relationship: many_to_one
   }
 }
+
+# explore: events {
+#   join: users {
+#     type: left_outer
+#     sql_on: ${events.user_id} = ${users.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+
+# explore: inventory_items {
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
+# }
+
+# explore: products_dt_with_param {
+#   join: products {
+#     type: left_outer
+#     sql_on: ${products_dt_with_param.product_level} = ${products.product_hierarchy} ;;
+#     relationship: one_to_many
+#   }
+# }
 
 explore: users {}
 
