@@ -46,6 +46,9 @@ explore: orders_by_date_dt {
 }
 
 explore: order_items {
+
+  # cancel_grouping_fields: [orders.status, drill_set*, orders.id]
+
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;

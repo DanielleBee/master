@@ -338,6 +338,6 @@ drill_fields: []
   }
 
   set: drill_set {
-   fields: [order_id, order_size, products.category, count]
+   fields: [order_id, order_size, products.category]
   }
 }
