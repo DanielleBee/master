@@ -14,6 +14,12 @@ view: orders {
     html:  <center><font color="#5A2FC2" size="12" >{{ value }}</font></center>;;
   }
 
+  dimension: single_value_vis_test_2 {
+    type: string
+    sql: "Single Value Vis Test" ;;
+    html:  <center><font color="#5A2FC2" size="8" >{{ value }}</font></center>;;
+  }
+
   filter: date_filter_1 {
     type: date
   }
@@ -295,12 +301,6 @@ measure: filtered_count_week_of_year {
     filters: [created_date: "6 months ago"]
     }
 
-  measure: count_one_week_ago {
-    type: count_distinct
-    sql:  ${id}  ;;
-    filters: [created_date: "8 months ago"]
-  }
-
   measure: average_cancelled {
     type: average
     value_format_name: decimal_0
@@ -394,6 +394,30 @@ measure: filtered_count_week_of_year {
     {% endif %};;
   }
 
+
+###### Table Report Vis Subtotals Test #######
+
+  measure: count_orders_2018 {
+    type: count
+    filters: [created_year: "2018"]
+  }
+
+  measure: count_orders_2019 {
+    type: count
+    filters: [created_year: "2019"]
+  }
+
+  measure: yoy_percent_change_order_items{
+    type: number
+    sql: (${count_orders_2019}-${count_orders_2018})/nullif(${count_orders_2018},0) ;;
+    value_format_name: percent_2
+  }
+
+  measure: total_users_over_total_orders {
+    type: number
+    sql: ${users.count}/nullif(${count},0) ;;
+    value_format_name: percent_2
+  }
 
   # measure: postion_weighted_share {
   #   label: "Position Weighted Share"

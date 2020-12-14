@@ -37,13 +37,13 @@ explore: derived_test_table_3_20190510 {}
 
 explore: non_window_function_dt {}
 
-explore: orders_by_date_dt {
-  join: orders {
-    type: left_outer
-    sql_on: ${orders_by_date_dt.created_at_date} = ${orders.created_date} ;;
-    relationship: many_to_one
-  }
-}
+# explore: orders_by_date_dt {
+#   join: orders {
+#     type: left_outer
+#     sql_on: ${orders_by_date_dt.created_at_date} = ${orders.created_date} ;;
+#     relationship: many_to_one
+#   }
+# }
 
 explore: order_items {
 
@@ -106,13 +106,13 @@ explore: user_data {
   }
 }
 
-explore: derived_table {
-  join: orders {
-    type: left_outer
-    sql_on: ${derived_table.order_id} = ${orders.id} ;;
-    relationship: many_to_one
-  }
-}
+# explore: derived_table {
+#   join: orders {
+#     type: left_outer
+#     sql_on: ${derived_table.order_id} = ${orders.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
 # explore: events {
 #   join: users {
